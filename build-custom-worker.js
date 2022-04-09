@@ -55,32 +55,31 @@ const buildCustomWorker = ({ id, basedir, customWorkerDir, destdir, plugins, suc
     module: {
       rules: [
         {
-          test: /\.(t|j)s$/i,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: [
-                  [
-                    'next/babel',
-                    {
-                      'transform-runtime': {
-                        corejs: false,
-                        helpers: true,
-                        regenerator: false,
-                        useESModules: true
-                      },
-                      'preset-env': {
-                        modules: false,
-                        targets: 'chrome >= 56'
-                      }
-                    }
-                  ]
-                ]
-              }
-            }
-          ]
-        }
+          test: /\.js$/i,
+          loader: 'esbuild-loader',
+        },
+        // {
+        //   test: /\.js$/i,
+        //   use: [
+        //     {
+        //       loader: 'babel-loader',
+        //       options: {
+        //         presets: [['next/babel', {
+        //           'transform-runtime': {
+        //             corejs: false,
+        //             helpers: true,
+        //             regenerator: false,
+        //             useESModules: true
+        //           },
+        //           'preset-env': {
+        //             modules: false,
+        //             targets: 'chrome >= 56'
+        //           }
+        //         }]]
+        //       }
+        //     }
+        //   ]
+        // }
       ]
     },
     output: {
@@ -94,11 +93,11 @@ const buildCustomWorker = ({ id, basedir, customWorkerDir, destdir, plugins, suc
     ].concat(plugins),
     optimization: minify
       ? {
-          minimize: true,
-          minimizer: [
-            new ESBuildMinifyPlugin(),
-          ]
-        }
+        minimize: true,
+        minimizer: [
+          new ESBuildMinifyPlugin(),
+        ]
+      }
       : undefined
   }).run((error, status) => {
     if (error || status.hasErrors()) {

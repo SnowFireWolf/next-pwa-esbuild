@@ -7,7 +7,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
-const getFallbackEnvs = ({fallbacks, basedir, id, pageExtensions}) => {
+const getFallbackEnvs = ({ fallbacks, basedir, id, pageExtensions }) => {
   let { document, data } = fallbacks
 
   if (!document) {
@@ -31,8 +31,8 @@ const getFallbackEnvs = ({fallbacks, basedir, id, pageExtensions}) => {
 
   if (data && data.endsWith('.json')) {
     data = path.posix.join('/_next/data', id, data)
-  } 
-  
+  }
+
   const envs = {
     __PWA_FALLBACK_DOCUMENT__: document || false,
     __PWA_FALLBACK_IMAGE__: fallbacks.image || false,
@@ -51,12 +51,12 @@ const getFallbackEnvs = ({fallbacks, basedir, id, pageExtensions}) => {
   if (envs.__PWA_FALLBACK_VIDEO__) console.log(`> [PWA]   video: ${envs.__PWA_FALLBACK_VIDEO__}`)
   if (envs.__PWA_FALLBACK_FONT__) console.log(`> [PWA]   font: ${envs.__PWA_FALLBACK_FONT__}`)
   if (envs.__PWA_FALLBACK_DATA__) console.log(`> [PWA]   data (/_next/data/**/*.json): ${envs.__PWA_FALLBACK_DATA__}`)
-  
+
   return envs
 }
 
 const buildFallbackWorker = ({ id, fallbacks, basedir, destdir, success, minify, pageExtensions }) => {
-  const envs = getFallbackEnvs({fallbacks, basedir, id, pageExtensions})
+  const envs = getFallbackEnvs({ fallbacks, basedir, id, pageExtensions })
   if (!envs) return false
 
   const name = `fallback-${id}.js`
@@ -90,26 +90,30 @@ const buildFallbackWorker = ({ id, fallbacks, basedir, destdir, success, minify,
       rules: [
         {
           test: /\.js$/i,
-          use: [
-            {
-              loader: 'babel-loader',
-              options: {
-                presets: [['next/babel', {
-                  'transform-runtime': {
-                    corejs: false,
-                    helpers: true,
-                    regenerator: false,
-                    useESModules: true
-                  },
-                  'preset-env': {
-                    modules: false,
-                    targets: 'chrome >= 56'
-                  }
-                }]]
-              }
-            }
-          ]
-        }
+          loader: 'esbuild-loader',
+        },
+        // {
+        //   test: /\.js$/i,
+        //   use: [
+        //     {
+        //       loader: 'babel-loader',
+        //       options: {
+        //         presets: [['next/babel', {
+        //           'transform-runtime': {
+        //             corejs: false,
+        //             helpers: true,
+        //             regenerator: false,
+        //             useESModules: true
+        //           },
+        //           'preset-env': {
+        //             modules: false,
+        //             targets: 'chrome >= 56'
+        //           }
+        //         }]]
+        //       }
+        //     }
+        //   ]
+        // }
       ]
     },
     output: {
@@ -134,7 +138,7 @@ const buildFallbackWorker = ({ id, fallbacks, basedir, destdir, success, minify,
       console.error(status.toString({ colors: true }))
       process.exit(-1)
     } else {
-      success({name, precaches: Object.values(envs).filter(v => !!v)})
+      success({ name, precaches: Object.values(envs).filter(v => !!v) })
     }
   })
 
