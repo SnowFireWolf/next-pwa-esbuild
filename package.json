@@ -1,6 +1,6 @@
 {
   "name": "next-pwa-esbuild",
-  "version": "0.0.2",
+  "version": "0.0.3-main.0",
   "description": "Next.js with PWA, powered by workbox and esbuild.",
   "main": "index.js",
   "repository": "https://github.com/snowfirewolf/next-pwa-esbuild",
