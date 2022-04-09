@@ -1,15 +1,19 @@
 {
-  "name": "next-pwa-esbuild",
+  "name": "@sfirew/next-pwa-esbuild",
   "version": "0.0.1",
   "description": "Next.js with PWA, powered by workbox and esbuild.",
   "main": "index.js",
   "repository": "https://github.com/shadowwalker/next-pwa",
-  "author": "ShadowWalker <w@weiw.io>",
+  "authors": [
+    "ShadowWalker <w@weiw.io>",
+    "SnowFireWolf"
+  ],
   "license": "MIT",
   "private": false,
   "keywords": [
     "nextjs",
     "pwa",
+    "esbuild",
     "workbox",
     "web",
     "service-worker"
