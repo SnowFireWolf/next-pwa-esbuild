@@ -1,7 +1,7 @@
 {
-  "name": "next-pwa",
-  "version": "5.4.7",
-  "description": "Next.js with PWA, powered by workbox.",
+  "name": "next-pwa-esbuild",
+  "version": "0.0.1",
+  "description": "Next.js with PWA, powered by workbox and esbuild.",
   "main": "index.js",
   "repository": "https://github.com/shadowwalker/next-pwa",
   "author": "ShadowWalker <w@weiw.io>",
@@ -17,6 +17,7 @@
   "dependencies": {
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "esbuild-loader": "^2.18.0",
     "globby": "^11.0.4",
     "terser-webpack-plugin": "^5.3.1",
     "workbox-webpack-plugin": "^6.5.1",

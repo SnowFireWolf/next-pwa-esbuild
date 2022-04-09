@@ -5,6 +5,7 @@ const fs = require('fs')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 const getFallbackEnvs = ({fallbacks, basedir, id, pageExtensions}) => {
   let { document, data } = fallbacks
@@ -123,7 +124,9 @@ const buildFallbackWorker = ({ id, fallbacks, basedir, destdir, success, minify,
     ],
     optimization: minify ? {
       minimize: true,
-      minimizer: [new TerserPlugin()]
+      minimizer: [
+        new ESBuildMinifyPlugin(),
+      ]
     } : undefined
   }).run((error, status) => {
     if (error || status.hasErrors()) {

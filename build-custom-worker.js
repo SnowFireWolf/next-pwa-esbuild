@@ -5,6 +5,7 @@ const fs = require('fs')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 const buildCustomWorker = ({ id, basedir, customWorkerDir, destdir, plugins, success, minify }) => {
   let workerDir = undefined
@@ -94,7 +95,9 @@ const buildCustomWorker = ({ id, basedir, customWorkerDir, destdir, plugins, suc
     optimization: minify
       ? {
           minimize: true,
-          minimizer: [new TerserPlugin()]
+          minimizer: [
+            new ESBuildMinifyPlugin(),
+          ]
         }
       : undefined
   }).run((error, status) => {
