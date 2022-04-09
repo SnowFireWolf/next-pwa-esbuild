@@ -4,7 +4,6 @@ const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 const buildCustomWorker = ({ id, basedir, customWorkerDir, destdir, plugins, success, minify }) => {
@@ -58,28 +57,6 @@ const buildCustomWorker = ({ id, basedir, customWorkerDir, destdir, plugins, suc
           test: /\.js$/i,
           loader: 'esbuild-loader',
         },
-        // {
-        //   test: /\.js$/i,
-        //   use: [
-        //     {
-        //       loader: 'babel-loader',
-        //       options: {
-        //         presets: [['next/babel', {
-        //           'transform-runtime': {
-        //             corejs: false,
-        //             helpers: true,
-        //             regenerator: false,
-        //             useESModules: true
-        //           },
-        //           'preset-env': {
-        //             modules: false,
-        //             targets: 'chrome >= 56'
-        //           }
-        //         }]]
-        //       }
-        //     }
-        //   ]
-        // }
       ]
     },
     output: {

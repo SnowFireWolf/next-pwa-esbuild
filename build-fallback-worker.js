@@ -4,7 +4,6 @@ const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 const getFallbackEnvs = ({ fallbacks, basedir, id, pageExtensions }) => {
@@ -92,28 +91,6 @@ const buildFallbackWorker = ({ id, fallbacks, basedir, destdir, success, minify,
           test: /\.js$/i,
           loader: 'esbuild-loader',
         },
-        // {
-        //   test: /\.js$/i,
-        //   use: [
-        //     {
-        //       loader: 'babel-loader',
-        //       options: {
-        //         presets: [['next/babel', {
-        //           'transform-runtime': {
-        //             corejs: false,
-        //             helpers: true,
-        //             regenerator: false,
-        //             useESModules: true
-        //           },
-        //           'preset-env': {
-        //             modules: false,
-        //             targets: 'chrome >= 56'
-        //           }
-        //         }]]
-        //       }
-        //     }
-        //   ]
-        // }
       ]
     },
     output: {
